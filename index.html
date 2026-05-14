@@ -227,7 +227,7 @@ html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--t
       <div class="tb-search">🔍&nbsp; 삼성전자 (005930)</div>
       <div class="tb-live"><div class="tb-dot"></div>네이버 파이낸스</div>
       <div class="tb-mktbadge" id="mkt-status">—</div>
-      <div class="tb-countdown">⏱ 다음 갱신 <span id="countdown">5:00</span></div>
+      <div class="tb-countdown">⏱ 다음 갱신 <span id="countdown">1:00</span></div>
       <div class="tb-ts">갱신: <span id="ts">—</span></div>
       <div class="tb-right">
         <span id="data-src-badge" class="src-indicator warn">⏳ 연결 중</span>
@@ -440,7 +440,7 @@ const SEMIS = [
 let priceChart = null, rsiChart = null;
 let exportData = [];
 let usdKrwRate = 1380;
-let countdownSecs = 300, countdownInterval = null;
+let countdownSecs = 60, countdownInterval = null;
 let lastDataSource = '—';
 
 // ═══════════════════════════════════════════════════════
@@ -1189,7 +1189,7 @@ function exportSignals(){
 // ═══════════════════════════════════════════════════════
 // COUNTDOWN
 // ═══════════════════════════════════════════════════════
-function startCountdown(secs=300){
+function startCountdown(secs=60){
   if(countdownInterval)clearInterval(countdownInterval);
   countdownSecs=secs;
   const el=document.getElementById('countdown');
@@ -1202,7 +1202,7 @@ function startCountdown(secs=300){
 }
 async function fullRefresh(){
   await Promise.all([loadData(),loadOverseasPanel(),loadNews()]);
-  startCountdown(300);
+  startCountdown(60);
 }
 async function manualRefresh(){
   if(countdownInterval)clearInterval(countdownInterval);
@@ -1217,7 +1217,7 @@ async function manualRefresh(){
   await fetchExchangeRate();
   await Promise.all([loadData(),loadOverseasPanel(),loadNews()]);
   loadSemiconductors();
-  startCountdown(300);
+  startCountdown(60);
   setInterval(loadSemiconductors,60*60*1000);
 })();
 </script>
